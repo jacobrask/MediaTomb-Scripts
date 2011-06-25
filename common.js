@@ -8,9 +8,10 @@
     
     common.js - this file is part of MediaTomb.
     
-    Copyright (C) 2006-2010 Gena Batyan <bgeradz@mediatomb.cc>,
+    Copyright (C) 2006-2011 Gena Batyan <bgeradz@mediatomb.cc>,
                             Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>,
                             Leonhard Wimmer <leo@mediatomb.cc>
+                            Jacob Rask <jacob@jacobrask.net>
     
     This file is free software; the copyright owners give unlimited permission
     to copy and/or redistribute it; with or without modifications, as long as
@@ -20,7 +21,7 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     
-    $Id: common.js 2081 2010-03-23 20:18:00Z lww $
+    $Id$
 */
 
 function escapeSlash(name)
@@ -93,4 +94,18 @@ function getRootPath(rootpath, location)
     }
 
     return path;
+}
+
+function getSortChar(str) {
+    var sortChar,
+        alphaRe = /a-z/i,
+        firstLetter = str.charAt(0);
+
+    if (alphaRe.test(firstLetter)) {
+        sortChar = firstLetter.toUpperCase();
+    } else {
+        sortChar = '#';
+    }
+
+    return sortChar;
 }
