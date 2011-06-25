@@ -2,7 +2,7 @@
 
 function addAudio(obj) {
  
-    var title, artist, album, date, genre, chain;
+    var title, artist, album, albumartist, date, genre, chain;
 
 
     // Define metadata variables
@@ -12,18 +12,36 @@ function addAudio(obj) {
     date = getYear(obj.meta['M_DATE']) || '0000';
     genre = obj.meta['M_GENRE'] || '[unknown]';
 
+    // add this to config.xml to enable
+    // <library-options><id3><auxdata><add-data tag="TPE2"/></auxdata></id3></library-options>
+    if (obj.aux['TPE2']) {
+        albumartist = obj.aux['TPE2'];
+    } else {
+        // if albumartist tag is not present, use artist (or Various Artist if present in path)
+        if (/Various Artists/.test(obj.location)) {
+            albumartist = 'Various Artists';
+        } else {
+            albumartist = artist;
+        }
+    }
+    
     // Add "all songs" to artist listings
     chain = ['Audio', 'Artists', artist, '(all songs)'];
     addCdsObject(obj, createContainerChain(chain));
-    
+
     // Add albums to artists listing
     chain = ['Audio', 'Artists', artist, album];
     obj.title = title;
     addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER_MUSIC_ALBUM');
     
+    // Add Album Artists listing
+    chain = ['Audio', 'Artists (albums)', albumartist, album];
+    obj.title = title;
+    addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER_MUSIC_ALBUM');
+
     // Add root Albums listing
     chain = ['Audio', 'Albums', album];
-    obj.title = track + title; 
+    obj.title = title; 
     addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER_MUSIC_ALBUM');
     
     // Add root Genre" listing
