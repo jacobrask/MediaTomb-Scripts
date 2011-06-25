@@ -4,7 +4,6 @@ function addAudio(obj) {
  
     var title, artist, album, albumartist, genre, chain;
 
-
     // Define metadata variables
     title = obj.meta[M_TITLE] || obj.title;
     artist = obj.meta[M_ARTIST] || '[unknown]';
@@ -52,7 +51,7 @@ function addVideo(obj) {
     chain = ['Video', 'All Video'];
     addCdsObject(obj, createContainerChain(chain));
 
-    dir = getRootPath('object_root_path', obj.location);
+    dir = getRootPath(object_root_path, obj.location);
 
     if (dir.length > 0) {
         chain = ['Video', 'Directories'];
@@ -67,7 +66,7 @@ function addImage(obj) {
     var chain, date, dateParts, year, month, dir;
     
     chain = ['Photos', 'All Photos'];
-    addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER');
+    addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER);
 
     date = obj.meta['M_DATE'];
     if (date) {
@@ -77,14 +76,14 @@ function addImage(obj) {
             month = dateParts[1];
 
             chain = ['Photos', 'Year', year, month];
-            addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER');
+            addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER);
         }
 
         chain = ['Photos', 'Date', date];
-        addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER');
+        addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER);
     }
 
-    dir = getRootPath('object_root_path', obj.location);
+    dir = getRootPath(object_root_path, obj.location);
 
     if (dir.length > 0) {
         chain = ['Photos', 'Directories'];
