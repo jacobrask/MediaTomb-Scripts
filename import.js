@@ -25,29 +25,24 @@ function addAudio(obj) {
     }
     
     obj.title = title;
-
-    // Add "all songs" to artist listings
-    chain = ['Audio', 'Artists', getSortChar(artist), artist, '(all songs)'];
-    addCdsObject(obj, createContainerChain(chain));
-
-    // Add albums to artists listing
-    chain = ['Audio', 'Artists', getSortChar(artist), artist, album];
     if (albumartist == 'Various Artists') {
         obj.title = artist + ' - ' + title;
     }
 
-    addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER_MUSIC_ALBUM);
-    
-    // Add Album Artists listing
+    // Show all albums by an artist
     chain = ['Audio', 'Artists (albums)', getSortChar(albumartist), albumartist, album];
     addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER_MUSIC_ALBUM);
 
-    // Add root Albums listing
+    // Show all songs by an artist 
+    chain = ['Audio', 'Artists (songs)', getSortChar(artist), artist];
+    addCdsObject(obj, createContainerChain(chain));
+
+    // List albums by title
     chain = ['Audio', 'Albums', getSortChar(album), album];
     addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER_MUSIC_ALBUM);
     
-    // Add root Genre" listing
-    chain = ['Audio', 'Genre - songs', genre];
+    // List songs by genre
+    chain = ['Audio', 'Genre (songs)', genre];
     addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER_MUSIC_GENRE);
 }
 
