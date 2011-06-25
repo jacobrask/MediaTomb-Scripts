@@ -2,15 +2,14 @@
 
 function addAudio(obj) {
  
-    var title, artist, album, albumartist, date, genre, chain;
+    var title, artist, album, albumartist, genre, chain;
 
 
     // Define metadata variables
-    title = obj.meta['M_TITLE'] || obj.title;
-    artist = obj.meta['M_ARTIST'] || '[unknown]';
-    album = obj.meta['M_ALBUM'] || '[unknown]';
-    date = getYear(obj.meta['M_DATE']) || '0000';
-    genre = obj.meta['M_GENRE'] || '[unknown]';
+    title = obj.meta[M_TITLE] || obj.title;
+    artist = obj.meta[M_ARTIST] || '[unknown]';
+    album = obj.meta[M_ALBUM] || '[unknown]';
+    genre = obj.meta[M_GENRE] || '[unknown]';
 
     // add this to config.xml to enable
     // <library-options><id3><auxdata><add-data tag="TPE2"/></auxdata></id3></library-options>
