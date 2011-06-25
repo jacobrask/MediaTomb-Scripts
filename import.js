@@ -24,28 +24,31 @@ function addAudio(obj) {
         }
     }
     
+    obj.title = title;
+
     // Add "all songs" to artist listings
-    chain = ['Audio', 'Artists', artist, '(all songs)'];
+    chain = ['Audio', 'Artists', getSortChar(artist), artist, '(all songs)'];
     addCdsObject(obj, createContainerChain(chain));
 
     // Add albums to artists listing
-    chain = ['Audio', 'Artists', artist, album];
-    obj.title = title;
-    addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER_MUSIC_ALBUM');
+    chain = ['Audio', 'Artists', getSortChar(artist), artist, album];
+    if (albumartist == 'Various Artists') {
+        obj.title = artist + ' - ' + title;
+    }
+
+    addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER_MUSIC_ALBUM);
     
     // Add Album Artists listing
-    chain = ['Audio', 'Artists (albums)', albumartist, album];
-    obj.title = title;
-    addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER_MUSIC_ALBUM');
+    chain = ['Audio', 'Artists (albums)', getSortChar(albumartist), albumartist, album];
+    addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER_MUSIC_ALBUM);
 
     // Add root Albums listing
-    chain = ['Audio', 'Albums', album];
-    obj.title = title; 
-    addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER_MUSIC_ALBUM');
+    chain = ['Audio', 'Albums', getSortChar(album), album];
+    addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER_MUSIC_ALBUM);
     
     // Add root Genre" listing
     chain = ['Audio', 'Genre - songs', genre];
-    addCdsObject(obj, createContainerChain(chain), 'UPNP_CLASS_CONTAINER_MUSIC_GENRE');
+    addCdsObject(obj, createContainerChain(chain), UPNP_CLASS_CONTAINER_MUSIC_GENRE);
 }
 
 function addVideo(obj) {
