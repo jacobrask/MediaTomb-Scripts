@@ -98,11 +98,10 @@ function getRootPath(rootpath, location)
 
 function getSortChar(str) {
     var sortChar,
-        alphaRe = /a-z/i,
-        firstLetter = str.charAt(0);
+        firstLetter = str.charAt(0).toUpperCase();
 
-    if (alphaRe.test(firstLetter)) {
-        sortChar = firstLetter.toUpperCase();
+    if (/[A-Z]/.test(firstLetter)) {
+        sortChar = firstLetter;
     } else {
         sortChar = '#';
     }
